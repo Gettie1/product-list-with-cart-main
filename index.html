@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.google.com/specimen/Red+Hat+Text">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
+  
+  <title> Product list with cart</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+</head>
+<body>
+  <div>
+  <header>
+    <h1>Desserts</h1>
+  </header>
+  <main>
+    <div class="container">
+      <div class="product">
+        <img src="./assets/images/image-waffle-mobile.jpg" alt="Dessert Image 1">
+         <button class="add-to-cart">Add to Cart</button>
+        <h4>Waffle with Berries</h4>
+        <p>Waffle</p>
+        <h4>Waffle with Berries</h4>
+        <p class="price">$6.50</p>
+      </div>
+
+      <div class="product">
+        <img src="./assets/images/image-creme-brulee-mobile.jpg" alt="Dessert Image 2">
+        <button class="add-to-cart">Add to Cart</button>
+        <h6>Crème Brûlée</p>
+        <h4>Vanilla Bean Crème Brûlée</h4>
+        <p class="price">$7.00</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="./assets/images/image-macaron-mobile.jpg" alt="Dessert Image 3">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Macaron</p>
+        <h4>Macaron Mix of Five</h4>
+        <p class="price">$8.00</p>
+      </div>    
+      <div class="product">
+        <img src="./assets/images/image-tiramisu-mobile.jpg" alt="Dessert Image 4">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Tiramisu</p>
+        <h4>Classic Tiramisu</h4>
+        <p class="price">$5.50</p>
+      </div>
+      <div class="product">
+        <img src="./assets/images/image-baklava-mobile.jpg" alt="Dessert Image 5">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Baklava</p>
+        <h4>Pistachio Baklava</h4>
+        <p class="price">$4.00</p>
+      </div>
+      <div class="product">
+        <img src="./assets/images/image-meringue-mobile.jpg" alt="Dessert Image 6">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Pie</p>
+        <h4>Lemon Meringue Pie</h4>
+        <p class="price">$5.00</p>
+      </div>    
+      <div class="product">
+        <img src="./assets/images/image-cake-mobile.jpg" alt="Dessert Image 7">
+         <button class="add-to-cart">Add to Cart</button>
+        <p>Cake</p>
+        <h4>Red Velvet Cake</h4>
+        <p class="price">$4.50</p>
+       
+      </div>
+      <div class="product">
+        <img src="./assets/images/image-brownie-mobile.jpg" alt="Dessert Image 8">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Brownie</p>
+        <h4>Salted Caramel Brownie</h4>
+        <p class="price">$4.50</p>
+      </div>  
+      <div class="product">
+        <img src="./assets/images/image-panna-cotta-mobile.jpg" alt="Dessert Image 9">
+        <button class="add-to-cart">Add to Cart</button>
+        <p>Panna Cotta</p>
+        <h4>Vanilla Panna Cotta</h4>
+        <p class="price">$6.50</p>
+      </div>
+    </div>
+    <div class="cart-container">
+     <aside class="cart">
+      <h2>Your Cart (<span id="cart-count">0</span>)</h2>
+      <ul id="cart-items"></ul>
+      <div class="total">
+        <p>Order Total: <strong id="cart-total">$0.00</strong></p>
+        <p class="eco">This is a <strong>carbon-neutral</strong> delivery</p>
+        <button id="confirm">Confirm Order</button>
+      </div>
+    </aside>
+    </div>
+  </main>
+  <script src="src/main.ts"></script>
+  <footer>
+    <p>&copy; 2023 Dessert Shop. All rights reserved.</p>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>
