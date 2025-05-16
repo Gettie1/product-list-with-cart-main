@@ -26,7 +26,7 @@
 
 }
 body {
-  background-color: var(--color-rose-50);
+  background-color:#ffffff;
   font-size: 16px;
   line-height: 1.5;
   margin: 20px;
@@ -101,6 +101,15 @@ button:disabled:active {
   background-color: var(--color-rose-500);
   color: var(--color-rose-900);
 }
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -114,6 +123,19 @@ button:disabled:active {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
+}
+.cart-container {
+  background-color: var(--color-rose-50);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self:top;
+  justify-content: center;
+  width: auto;
+  max-width: auto;
+  margin: 0 auto;
+
 }
 @media (max-width: 1440px){
   .container{
