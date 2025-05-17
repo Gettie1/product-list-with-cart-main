@@ -1,64 +1,141 @@
-interface ProductInfo {
-  name: string;
-  price: number;
+// [
+//     {
+//        "image": {
+//             "thumbnail": "./assets/images/image-waffle-thumbnail.jpg",
+//             "mobile": "./assets/images/image-waffle-mobile.jpg",
+//             "tablet": "./assets/images/image-waffle-tablet.jpg",
+//             "desktop": "./assets/images/image-waffle-desktop.jpg"
+//        },
+//        "name": "Waffle with Berries",
+//        "category": "Waffle",
+//        "price": 6.50
+//     },
+//     {
+//         "image": {
+//             "thumbnail": "./assets/images/image-creme-brulee-thumbnail.jpg",
+//             "mobile": "./assets/images/image-creme-brulee-mobile.jpg",
+//             "tablet": "./assets/images/image-creme-brulee-tablet.jpg",
+//             "desktop": "./assets/images/image-creme-brulee-desktop.jpg"
+//         },
+//         "name": "Vanilla Bean Crème Brûlée",
+//         "category": "Crème Brûlée",
+//         "price": 7.00
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-macaron-thumbnail.jpg",
+//             "mobile": "./assets/images/image-macaron-mobile.jpg",
+//             "tablet": "./assets/images/image-macaron-tablet.jpg",
+//             "desktop": "./assets/images/image-macaron-desktop.jpg"
+//         },
+//         "name": "Macaron Mix of Five",
+//         "category": "Macaron",
+//         "price": 8.00
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-tiramisu-thumbnail.jpg",
+//             "mobile": "./assets/images/image-tiramisu-mobile.jpg",
+//             "tablet": "./assets/images/image-tiramisu-tablet.jpg",
+//             "desktop": "./assets/images/image-tiramisu-desktop.jpg"
+//         },
+//         "name": "Classic Tiramisu",
+//         "category": "Tiramisu",
+//         "price": 5.50
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-baklava-thumbnail.jpg",
+//             "mobile": "./assets/images/image-baklava-mobile.jpg",
+//             "tablet": "./assets/images/image-baklava-tablet.jpg",
+//             "desktop": "./assets/images/image-baklava-desktop.jpg"
+//         },
+//         "name": "Pistachio Baklava",
+//         "category": "Baklava",
+//         "price": 4.00
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-meringue-thumbnail.jpg",
+//             "mobile": "./assets/images/image-meringue-mobile.jpg",
+//             "tablet": "./assets/images/image-meringue-tablet.jpg",
+//             "desktop": "./assets/images/image-meringue-desktop.jpg"
+//         },
+//         "name": "Lemon Meringue Pie",
+//         "category": "Pie",
+//         "price": 5.00
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-cake-thumbnail.jpg",
+//             "mobile": "./assets/images/image-cake-mobile.jpg",
+//             "tablet": "./assets/images/image-cake-tablet.jpg",
+//             "desktop": "./assets/images/image-cake-desktop.jpg"
+//         },
+//         "name": "Red Velvet Cake",
+//         "category": "Cake",
+//         "price": 4.50
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-brownie-thumbnail.jpg",
+//             "mobile": "./assets/images/image-brownie-mobile.jpg",
+//             "tablet": "./assets/images/image-brownie-tablet.jpg",
+//             "desktop": "./assets/images/image-brownie-desktop.jpg"
+//         },
+//         "name": "Salted Caramel Brownie",
+//         "category": "Brownie",
+//         "price": 4.50
+//      },
+//      {
+//         "image": {
+//             "thumbnail": "./assets/images/image-panna-cotta-thumbnail.jpg",
+//             "mobile": "./assets/images/image-panna-cotta-mobile.jpg",
+//             "tablet": "./assets/images/image-panna-cotta-tablet.jpg",
+//             "desktop": "./assets/images/image-panna-cotta-desktop.jpg"
+//         },
+//         "name": "Vanilla Panna Cotta",
+//         "category": "Panna Cotta",
+//         "price": 6.50
+//      }
+
+import type { Product } from './types';
+import { addToCart, updateCartUI } from './cart';
+import '../style.css'; 
+async function fetchProducts(): Promise<Product[]> {
+  const response = await fetch('data.json');
+  const products: Omit<Product, 'id'>[] = await response.json();
+  return products.map((product, idx) => ({
+    ...product,
+    id: idx + 1
+  }));
 }
+function displayProducts(products:Product[]) {
+  const container=document.getElementById('product-list')!;
+  container.innerHTML = '';
 
-const cart: { [name: string]: { price: number; quantity: number } } = {};
+  products.forEach((product) => {
+    const productcard = document.createElement('div');
+    productcard.className= 'product-card';
 
-function updateCartDisplay(): void {
-  const cartItems = document.getElementById("cart-items")!;
-  const cartCount = document.getElementById("cart-count")!;
-  const cartTotal = document.getElementById("cart-total")!;
+    productcard.innerHTML = `
+      <div class="image-container">
+      <img src="${product.image.thumbnail}" alt="${product.name}" class="thumbnail">
+      <br>
+      <button data-id="${product.id}">Add to Cart</button>
+      </div>
+      <p style="color: hsl(12, 20%, 44%);" "font-size:smaller;">${product.category}</p>
+      <h4>${product.name}</h4>
+      <p style="color: hsl(14, 86%, 42%)">$${product.price.toFixed(2)}</p>
+    `;
 
-  cartItems.innerHTML = "";
-  let total = 0;
-  let count = 0;
-
-  for (const name in cart) {
-    const item = cart[name];
-    const lineTotal = item.price * item.quantity;
-    total += lineTotal;
-    count += item.quantity;
-
-    const li = document.createElement("li");
-    li.textContent = `${name} - ${item.quantity} x $${item.price.toFixed(2)} = $${lineTotal.toFixed(2)}`;
-    cartItems.appendChild(li);
-  }
-
-  cartCount.textContent = count.toString();
-  cartTotal.textContent = `$${total.toFixed(2)}`;
-}
-
-function extractProductInfo(card: HTMLElement): ProductInfo | null {
-  const nameEl = card.querySelector("h4");
-  const priceEl = card.querySelector(".price");
-
-  if (!nameEl || !priceEl) return null;
-
-  const name = nameEl.textContent?.trim() || "Unknown";
-  const price = parseFloat(priceEl.textContent?.replace("$", "") || "0");
-
-  return { name, price };
-}
-
-function setupCart(): void {
-  const buttons = document.querySelectorAll(".add-to-cart");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".product") as HTMLElement;
-      const info = extractProductInfo(card);
-
-      if (info) {
-        if (!cart[info.name]) {
-          cart[info.name] = { price: info.price, quantity: 1 };
-        } else {
-          cart[info.name].quantity++;
-        }
-        updateCartDisplay();
-      }
-    });
+    container.appendChild(productcard);
+     const btn = productcard.querySelector('button')!;
+    btn.addEventListener('click', () => addToCart(product));
   });
 }
 
-document.addEventListener("DOMContentLoaded", setupCart);
+fetchProducts().then(displayProducts);
+updateCartUI();
+
+
